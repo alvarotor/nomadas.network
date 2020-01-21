@@ -8,16 +8,16 @@ namespace nomadas.network.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TestController : ControllerBase
+    public class TestoController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<TestController> _logger;
+        private readonly ILogger<TestoController> _logger;
 
-        public TestController(ILogger<TestController> logger)
+        public TestoController(ILogger<TestoController> logger)
         {
             _logger = logger;
         }
