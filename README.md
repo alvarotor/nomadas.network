@@ -5,6 +5,9 @@
 `dotnet new webapi`
 `dotnet new sln`
 `dotnet new xunit -o Tests`
+`cd Tests`
+`dotnet add package Moq`
+`cd ..`
 `dotnet sln add ./Tests/Tests.csproj`
 `dotnet add nomadas.network.csproj reference Tests/Tests.csproj`
 
