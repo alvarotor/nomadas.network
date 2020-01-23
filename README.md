@@ -1,6 +1,14 @@
 # Nomadas Network
 
-- Test code on machine
+- Create code on machine
+
+`dotnet new webapi`
+`dotnet new sln`
+`dotnet new xunit -o Tests`
+`dotnet sln add ./Tests/Tests.csproj`
+`dotnet add nomadas.network.csproj reference Tests/Tests.csproj`
+
+- Run code on machine
 
 `dotnet run`
 
