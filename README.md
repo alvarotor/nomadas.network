@@ -10,11 +10,12 @@
 `dotnet add package Moq`
 `cd ..`
 `dotnet sln add ./Tests/Tests.csproj`
-`dotnet add nomadas.network.csproj reference Tests/Tests.csproj`
+`dotnet add Tests/Tests.csproj reference nomadas.network.csproj`
 
 - Run code on machine
 
-`dotnet run`
+`dotnet run` or `dotnet watch run`
+`curl --insecure https://localhost:5001/health`
 
 - Run tests on machine
 
