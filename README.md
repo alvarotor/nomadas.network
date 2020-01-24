@@ -1,7 +1,8 @@
 # Nomadas Network
 
-- Create code on machine
+- Create code on machine from scratch
 
+`mkdir nomadas.network && cd nomadas.network`
 `dotnet new webapi`
 `dotnet new sln`
 `dotnet new xunit -o Tests`
