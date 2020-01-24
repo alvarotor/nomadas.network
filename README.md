@@ -8,12 +8,13 @@
 `dotnet new xunit -o Nomadas.Network.Tests`
 `cd Nomadas.Network.Tests`
 `dotnet add package Moq`
+`dotnet add package Microsoft.AspNetCore.TestHost`
 `cd ..`
 `dotnet sln add ./Nomadas.Network/Nomadas.Network.csproj`
 `dotnet sln add ./Nomadas.Network.Tests/Nomadas.Network.Tests.csproj`
 `dotnet add Nomadas.Network.Tests/Nomadas.Network.Tests.csproj reference Nomadas.Network.csproj`
 
-`dotnet new sln -o nomadas.network && cd nomadas.network && dotnet new webapi -o Nomadas.Network && dotnet new xunit -o Nomadas.Network.Tests && cd Nomadas.Network.Tests && dotnet add package Moq && cd .. && dotnet sln add ./Nomadas.Network.Tests/Nomadas.Network.Tests.csproj && dotnet sln add ./Nomadas.Network/Nomadas.Network.csproj && dotnet add Nomadas.Network.Tests/Nomadas.Network.Tests.csproj reference Nomadas.Network/Nomadas.Network.csproj`
+`dotnet new sln -o nomadas.network && cd nomadas.network && dotnet new webapi -o Nomadas.Network && dotnet new xunit -o Nomadas.Network.Tests && cd Nomadas.Network.Tests && dotnet add package Moq && dotnet add package Microsoft.AspNetCore.TestHost && cd .. && dotnet sln add ./Nomadas.Network.Tests/Nomadas.Network.Tests.csproj && dotnet sln add ./Nomadas.Network/Nomadas.Network.csproj && dotnet add Nomadas.Network.Tests/Nomadas.Network.Tests.csproj reference Nomadas.Network/Nomadas.Network.csproj`
 
 - Run code on machine
 
