@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace nomadas.network
+namespace Nomadas.Network
 {
     public class Program
     {

@@ -7,7 +7,7 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace nomadas.network.Controllers
+namespace Nomadas.Network.Controllers
 {
     [ApiController]
     [Route("[controller]")]

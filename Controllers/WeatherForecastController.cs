@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace nomadas.network.Controllers
+namespace Nomadas.Network.Controllers
 {
     [ApiController]
     [Route("[controller]")]

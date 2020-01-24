@@ -1,6 +1,6 @@
 using System;
 
-namespace nomadas.network
+namespace Nomadas.Network
 {
     public class WeatherForecast
     {

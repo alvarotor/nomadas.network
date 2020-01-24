@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 
-namespace nomadas.network
+namespace Nomadas.Network
 {
     public class Startup
     {
