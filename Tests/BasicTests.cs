@@ -6,21 +6,21 @@ namespace Tests
 {
     public class BasicTests
     {
-        // public string ApiBaseUrl { get; set; } = "http://locahost:5000";
+        public string ApiBaseUrl { get; set; } = "http://locahost:5000";
 
-        // [Fact]
-        // public async Task PassingEndPointTest()
-        // {
-        //     var apiClient = new HttpClient();
+        [Fact]
+        public async Task PassingEndPointTest()
+        {
+            var apiClient = new HttpClient();
 
-        //     var apiResponse = await apiClient.GetAsync($"{ApiBaseUrl}/health");
+            var apiResponse = await apiClient.GetAsync($"{ApiBaseUrl}/health");
 
-        //     Assert.True(apiResponse.IsSuccessStatusCode);
+            Assert.True(apiResponse.IsSuccessStatusCode);
 
-        //     var stringResponse = await apiResponse.Content.ReadAsStringAsync();
+            var stringResponse = await apiResponse.Content.ReadAsStringAsync();
 
-        //     Assert.Equal("OK", stringResponse);
-        // }
+            Assert.Equal("OK", stringResponse);
+        }
 
         [Fact]
         public void PassingTest()

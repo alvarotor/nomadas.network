@@ -16,6 +16,10 @@
 
 `dotnet run`
 
+- Run tests on machine
+
+`dotnet test`
+
 - Test code on machine with docker
 
 `docker build -t nomadas.network.localimage .`
