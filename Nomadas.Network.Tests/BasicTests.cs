@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -38,10 +39,12 @@ namespace Nomadas.Network.Tests
         {
             // Act
             var response = await _client.GetAsync("/");
+            response.EnsureSuccessStatusCode();
 
             // Assert
             var responseString = await response.Content.ReadAsStringAsync();
             Assert.Equal("Hello world", responseString);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Fact]
@@ -49,10 +52,12 @@ namespace Nomadas.Network.Tests
         {
             // Act
             var response = await _client.GetAsync("/health");
+            response.EnsureSuccessStatusCode();
 
             // Assert
             var responseString = await response.Content.ReadAsStringAsync();
             Assert.Equal("OK", responseString);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Fact]
