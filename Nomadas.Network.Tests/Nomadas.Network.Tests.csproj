@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -13,10 +13,10 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.0" />
-    <ProjectReference Include="../nomadas.network.csproj" />
   </ItemGroup>
 
-  <!-- <ItemGroup>
-  </ItemGroup> -->
+  <ItemGroup>
+    <ProjectReference Include="..\Nomadas.Network\Nomadas.Network.csproj" />
+  </ItemGroup>
 
 </Project>
