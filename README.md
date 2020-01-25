@@ -1,32 +1,45 @@
 # Nomadas Network
 
-- Create code on machine from scratch
+## Create code on machine from scratch
 
-`dotnet new sln -o nomadas.network`
-`cd nomadas.network`
-`dotnet new webapi -o Nomadas.Network`
-`dotnet new xunit -o Nomadas.Network.Tests`
-`cd Nomadas.Network.Tests`
-`dotnet add package Moq`
-`dotnet add package Microsoft.AspNetCore.TestHost`
-`cd ..`
-`dotnet sln add ./Nomadas.Network/Nomadas.Network.csproj`
-`dotnet sln add ./Nomadas.Network.Tests/Nomadas.Network.Tests.csproj`
-`dotnet add Nomadas.Network.Tests/Nomadas.Network.Tests.csproj reference Nomadas.Network.csproj`
+    dotnet new sln -o nomadas.network
+    cd nomadas.network
+    dotnet new webapi -o Nomadas.Network
+    dotnet new xunit -o Nomadas.Network.Tests
+    cd Nomadas.Network.Tests
+    dotnet add package Moq
+    dotnet add package Microsoft.AspNetCore.TestHost
+    cd ..
+    dotnet sln add ./Nomadas.Network/Nomadas.Network.csproj
+    dotnet sln add ./Nomadas.Network.Tests/Nomadas.Network.Tests.csproj
+    dotnet add Nomadas.Network.Tests/Nomadas.Network.Tests.csproj reference Nomadas.Network.csproj
 
-`dotnet new sln -o nomadas.network && cd nomadas.network && dotnet new webapi -o Nomadas.Network && dotnet new xunit -o Nomadas.Network.Tests && cd Nomadas.Network.Tests && dotnet add package Moq && dotnet add package Microsoft.AspNetCore.TestHost && cd .. && dotnet sln add ./Nomadas.Network.Tests/Nomadas.Network.Tests.csproj && dotnet sln add ./Nomadas.Network/Nomadas.Network.csproj && dotnet add Nomadas.Network.Tests/Nomadas.Network.Tests.csproj reference Nomadas.Network/Nomadas.Network.csproj`
 
-- Run code on machine
+    dotnet new sln -o nomadas.network && cd nomadas.network && dotnet new webapi -o Nomadas.Network && dotnet new xunit -o Nomadas.Network.Tests && cd Nomadas.Network.Tests && dotnet add package Moq && dotnet add package Microsoft.AspNetCore.TestHost && cd .. && dotnet sln add ./Nomadas.Network.Tests/Nomadas.Network.Tests.csproj && dotnet sln add ./Nomadas.Network/Nomadas.Network.csproj && dotnet add Nomadas.Network.Tests/Nomadas.Network.Tests.csproj reference Nomadas.Network/Nomadas.Network.csproj
 
-`dotnet run` or `dotnet watch run`
-`curl --insecure https://localhost:5001/health`
+## Run code on machine
 
-- Run tests on machine
+    dotnet run
+    dotnet watch run
+    curl --insecure https://localhost:5001/health
 
-`dotnet test`
+## Run tests on machine
 
-- Test code on machine with docker
+    dotnet test
 
-`docker build -t nomadas.network.localimage .`
+## Test code on machine with docker
 
-`docker run -d -p 80:80 --name nomadas.network nomadas.network.localimage`
+    docker build -t nomadas.network.localimage .
+    docker run -d -p 80:80 --name nomadas.network nomadas.network.localimage
+
+## Tagging the project
+
+    git tag
+    git tag -a 0.1 -m "Basic project working with endpoint, docker and tests running"
+    git tag -d 0.1
+    git push origin 0.1
+
+## Tagging in docker
+
+    docker tag goodbytes23/nomadas.network goodbytes23/nomadas.network:0.1
+    docker push  goodbytes23/nomadas.network
