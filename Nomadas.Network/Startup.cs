@@ -22,7 +22,6 @@ namespace Nomadas.Network
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = getDBConnectionString();
-            Console.WriteLine(connection);
             // services.AddDbContext<DBContext>(options => options.UseSqlServer(connection));
             services.AddControllers();
             services.AddHealthChecks();
@@ -34,8 +33,7 @@ namespace Nomadas.Network
             var pass = Environment.GetEnvironmentVariable("DB_PASSWORD");
             var user = Environment.GetEnvironmentVariable("ADMIN_LOGIN");
             var dbname = Environment.GetEnvironmentVariable("DB_NAME");
-            var connection = $"Server={server};Database={dbname};User={user};Password={pass};";
-            return connection;
+            return $"Server={server};Database={dbname};User={user};Password={pass};";
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +53,8 @@ namespace Nomadas.Network
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapGet("/", context => context.Response.WriteAsync("Hello world " + getDBConnectionString()));
+                endpoints.MapGet("/", context => context.Response.WriteAsync("Hello world"));
+                endpoints.MapGet("/connection", context => context.Response.WriteAsync(getDBConnectionString()));
                 endpoints.MapHealthChecks("/health");
             });
         }
