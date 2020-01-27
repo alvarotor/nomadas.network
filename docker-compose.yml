@@ -1,0 +1,30 @@
+version: '3.0'
+ 
+services:
+    db:
+        image: "mcr.microsoft.com/mssql/server"
+        environment:
+            ACCEPT_EULA: "Y"
+            MSSQL_PID: Express
+            SA_PASSWORD: ${DB_PASSWORD}
+        # volumes:
+        #     - type: volume
+        #         source: docker-guide-data
+        #         target: /var/opt/mssql
+    webapi:
+        image: goodbytes23/nomadas.network:latest
+        build:
+            context: .
+            dockerfile: Dockerfile.develop
+        network_mode: host
+        volumes:
+            - ./:/src
+        ports:
+            - "5000:5000"
+        environment: 
+            DB_PASSWORD: ${DB_PASSWORD}
+            ADMIN_LOGIN: ${ADMIN_LOGIN}
+            DB_SERVER: ${DB_SERVER}
+            DB_NAME: ${DB_NAME}
+        depends_on:
+            - db

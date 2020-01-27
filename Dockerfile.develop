@@ -1,0 +1,8 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+LABEL Alvaro T (goodbytes23@gmail.com)
+WORKDIR /src
+EXPOSE 80
+COPY . .
+WORKDIR /src/Nomadas.Network
+RUN dotnet restore
+ENTRYPOINT ["dotnet", "watch", "run"]
