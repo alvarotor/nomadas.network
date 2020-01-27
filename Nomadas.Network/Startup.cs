@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
 using Microsoft.EntityFrameworkCore;
+using Nomadas.Network.Core;
 
 namespace Nomadas.Network
 {
@@ -21,8 +22,10 @@ namespace Nomadas.Network
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IWeatherForecastCore, WeatherForecastCore>();
+
             string connection = getDBConnectionString();
-            // services.AddDbContext<DBContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<DBContext>(options => options.UseSqlServer(connection));
             services.AddControllers();
             services.AddHealthChecks();
         }
@@ -45,10 +48,9 @@ namespace Nomadas.Network
             }
 
             // app.UseHttpsRedirection();
+            // app.UseAuthorization();
 
             app.UseRouting();
-
-            // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

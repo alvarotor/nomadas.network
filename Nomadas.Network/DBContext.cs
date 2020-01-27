@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Nomadas.Network.Models;
 
 namespace Nomadas.Network
 {

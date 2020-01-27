@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Nomadas.Network.Core;
+using Nomadas.Network.Models;
 
 namespace Nomadas.Network.Controllers
 {
@@ -17,11 +19,14 @@ namespace Nomadas.Network.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly DBContext _context;
+        // private readonly DBContext _context;
+        private readonly IWeatherForecastCore _weatherCore;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, DBContext context)
+        // public WeatherForecastController(ILogger<WeatherForecastController> logger, DBContext context)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IWeatherForecastCore weatherCore)
         {
-            _context = context;
+            // _context = context;
+            _weatherCore = weatherCore;
             _logger = logger;
         }
 
@@ -40,25 +45,35 @@ namespace Nomadas.Network.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<WeatherForecast>> PostDBItem(WeatherForecast dbItem)
+        public async Task<ActionResult<WeatherForecast>> Post(WeatherForecast dbItem)
         {
-            _context.DBItems.Add(dbItem);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _logger.LogInformation($"Created new item.");
 
-            return CreatedAtAction(nameof(GetDBItem), new { id = dbItem.Id }, dbItem);
+                await _weatherCore.Create(dbItem);
+                await _weatherCore.Save();
+
+                return CreatedAtAction(nameof(GetDBItem), new { id = dbItem.Id }, dbItem);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside GetAllOwners action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<WeatherForecast>> GetDBItem(long id)
+        public ActionResult<WeatherForecast> GetDBItem(long id)
         {
-            var todoItem = await _context.DBItems.FindAsync(id);
+            var todoItem = _weatherCore.FindAll();
 
             if (todoItem == null)
             {
                 return NotFound();
             }
 
-            return todoItem;
+            return Ok(todoItem);
         }
     }
 }
