@@ -44,4 +44,4 @@
 ## Tagging in docker
 
     docker tag goodbytes23/nomadas.network goodbytes23/nomadas.network:0.1
-    docker push  goodbytes23/nomadas.network
+    docker push goodbytes23/nomadas.network
