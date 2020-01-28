@@ -39,7 +39,7 @@ namespace Nomadas.Network
             var port = Environment.GetEnvironmentVariable("DB_PORT");
             var conn = $"Server=tcp:{server},{port};Initial Catalog={dbname};User ID={user};Password={pass};";
             conn += server != "localhost" ? "Persist Security Info=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" : "";
-            Console.WriteLine(conn);
+            // Console.WriteLine(conn);
             return conn;
         }
 
