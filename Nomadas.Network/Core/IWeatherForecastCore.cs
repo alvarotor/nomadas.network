@@ -7,6 +7,6 @@ namespace Nomadas.Network.Core
 {
     public interface IWeatherForecastCore : IRepositoryBase<WeatherForecast>
     {
-        Task<IEnumerable<WeatherForecast>> GetAll();
+        Task<IEnumerable<WeatherForecast>> GetAllOrderBySummary();
     }
 }

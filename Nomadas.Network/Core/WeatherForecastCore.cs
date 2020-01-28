@@ -10,7 +10,7 @@ namespace Nomadas.Network.Core
     {
         public WeatherForecastCore(DBContext repositoryContext) : base(repositoryContext) { }
 
-        public async Task<IEnumerable<WeatherForecast>> GetAll()
+        public async Task<IEnumerable<WeatherForecast>> GetAllOrderBySummary()
         {
             return await FindAll()
                 .OrderBy(o => o.Summary)
