@@ -7,7 +7,7 @@ namespace Nomadas.Network.Models
     [Table("WeatherForecast")]
     public class WeatherForecast
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public DateTime Date { get; set; }
 

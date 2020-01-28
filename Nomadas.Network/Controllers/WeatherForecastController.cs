@@ -58,7 +58,7 @@ namespace Nomadas.Network.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Something went wrong inside GetAllOwners action: {ex.Message}");
+                _logger.LogError($"Something went wrong inside Post action: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }

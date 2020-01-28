@@ -36,7 +36,11 @@ namespace Nomadas.Network
             var pass = Environment.GetEnvironmentVariable("DB_PASSWORD");
             var user = Environment.GetEnvironmentVariable("ADMIN_LOGIN");
             var dbname = Environment.GetEnvironmentVariable("DB_NAME");
-            return $"Server=tcp:{server},1433;Initial Catalog={dbname};Persist Security Info=False;User ID={user};Password={pass};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            var port = Environment.GetEnvironmentVariable("DB_PORT");
+            var conn = $"Server=tcp:{server},{port};Initial Catalog={dbname};User ID={user};Password={pass};";
+            conn += server != "localhost" ? "Persist Security Info=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" : "";
+            Console.WriteLine(conn);
+            return conn;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
