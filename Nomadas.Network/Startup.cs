@@ -25,7 +25,7 @@ namespace Nomadas.Network
             services.AddScoped<IWeatherForecastCore, WeatherForecastCore>();
 
             string connection = getDBConnectionString();
-            services.AddDbContext<DBContext>(options => options.UseSqlServer(connection));
+            // services.AddDbContext<DBContext>(options => options.UseSqlServer(connection));
             services.AddControllers();
             services.AddHealthChecks();
         }
