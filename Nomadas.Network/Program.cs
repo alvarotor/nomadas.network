@@ -41,7 +41,6 @@ namespace Nomadas.Network
                     }
                 }
             }
-
             return host;
         }
     }

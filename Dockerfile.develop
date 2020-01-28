@@ -4,5 +4,5 @@ WORKDIR /src
 EXPOSE 80
 COPY . .
 WORKDIR /src/Nomadas.Network
-RUN dotnet restore
+# RUN dotnet restore
 ENTRYPOINT ["dotnet", "watch", "run"]
