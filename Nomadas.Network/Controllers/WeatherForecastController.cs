@@ -19,10 +19,8 @@ namespace Nomadas.Network.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        // private readonly DBContext _context;
         private readonly IWeatherForecastCore _weatherCore;
 
-        // public WeatherForecastController(ILogger<WeatherForecastController> logger, DBContext context)
         public WeatherForecastController(ILogger<WeatherForecastController> logger, IWeatherForecastCore weatherCore)
         {
             // _context = context;
