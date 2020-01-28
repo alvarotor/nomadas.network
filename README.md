@@ -45,3 +45,12 @@
 
     docker tag goodbytes23/nomadas.network goodbytes23/nomadas.network:0.1
     docker push goodbytes23/nomadas.network
+
+## Running SQL Server
+
+    docker run -e "ACCEPT_EULA=Y" \
+    -e "SA_PASSWORD=<YourStrong@Passw0rd>" \
+    -e 'MSSQL_PID=Express' \
+    -p 1433:1433 \
+    -v sqlvolume:/var/opt/mssql \
+    -d mcr.microsoft.com/mssql/server:2019-latest
