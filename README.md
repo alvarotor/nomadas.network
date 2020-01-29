@@ -54,3 +54,10 @@
     -p 1433:1433 \
     -v sqlvolume:/var/opt/mssql \
     -d mcr.microsoft.com/mssql/server:2019-latest
+
+## Migrations
+
+    dotnet add package Microsoft.EntityFrameworkCore.Design
+    dotnet tool install --global dotnet-ef
+    dotnet ef migrations add InitialCreate
+    dotnet ef migrations remove

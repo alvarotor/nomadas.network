@@ -17,5 +17,7 @@ namespace Nomadas.Network.Models
 
         [Required(ErrorMessage = "Summary is required")]
         public string Summary { get; set; }
+
+        public string RandomString { get; set; }
     }
 }

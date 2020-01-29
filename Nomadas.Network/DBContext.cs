@@ -11,7 +11,7 @@ namespace Nomadas.Network
 
         public DbSet<WeatherForecast> DBItems { get; set; }
 
-        private static readonly string[] Summaries = new[]
+        private readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
@@ -26,10 +26,19 @@ namespace Nomadas.Network
                     Id = index,
                     Date = DateTime.Now.AddDays(index),
                     TemperatureC = rng.Next(-20, 55),
-                    Summary = Summaries[rng.Next(Summaries.Length)]
+                    Summary = Summaries[rng.Next(Summaries.Length)],
+                    RandomString = RandomString(10)
                 })
                 .ToArray()
             );
+        }
+
+        private string RandomString(int length)
+        {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }
