@@ -12,7 +12,7 @@ namespace Nomadas.Network
         {
             CreateHostBuilder(args)
                 .Build()
-                // .MigrateDatabase()
+                .MigrateDatabase()
                 .Run();
         }
 
