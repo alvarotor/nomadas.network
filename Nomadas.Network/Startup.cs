@@ -51,8 +51,8 @@ namespace Nomadas.Network
                 app.UseDeveloperExceptionPage();
             }
 
-            // app.UseHttpsRedirection();
             // app.UseAuthorization();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
