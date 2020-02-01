@@ -352,3 +352,6 @@ MigrationBackup/
 # Secrets
 .env
 .vscode/*
+
+#Coverage Reports
+coveragereport/

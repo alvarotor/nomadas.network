@@ -64,3 +64,9 @@
     dotnet tool install --global dotnet-ef
     dotnet ef migrations add InitialCreate
     dotnet ef migrations remove
+
+## Dotnet report test coverage
+
+    dotnet test --collect:"XPlat Code Coverage"
+    dotnet tool install --global dotnet-reportgenerator-globaltool
+    reportgenerator "-reports:OpenCover.xml" "-targetdir:coveragereport" reporttypes:Html
