@@ -22,11 +22,11 @@ namespace Nomadas.Network.Controllers
         }
 
         [HttpGet]
-        public ActionResult<WeatherForecast> Get()
+        public async Task<ActionResult<WeatherForecast>> Get()
         {
             _logger.LogInformation("Getting all list");
 
-            var items = _weatherCore.FindAll();
+            var items = await _weatherCore.FindAll();
 
             if (!items.Any())
             {
@@ -71,7 +71,6 @@ namespace Nomadas.Network.Controllers
                 _logger.LogInformation("Creating new item...");
 
                 await _weatherCore.Create(item);
-                await _weatherCore.Save();
 
                 _logger.LogInformation($"Created new item {item.Id}");
 
@@ -93,7 +92,7 @@ namespace Nomadas.Network.Controllers
 
             if (item.Any())
             {
-                return Ok(item.First());
+                return Ok(item.FirstOrDefault());
             }
             return NotFound();
         }
@@ -110,8 +109,7 @@ namespace Nomadas.Network.Controllers
                 return NotFound();
             }
 
-            _weatherCore.Delete(item.First());
-            await _weatherCore.Save();
+            await _weatherCore.Delete(item.FirstOrDefault());
 
             _logger.LogInformation($"Deleted item {id}");
 
@@ -137,7 +135,7 @@ namespace Nomadas.Network.Controllers
 
                 _logger.LogInformation("Updating item...");
 
-                var itemFound = _weatherCore.FindByCondition(x => x.Id == id).First();
+                var itemFound = _weatherCore.FindByCondition(x => x.Id == id).FirstOrDefault();
 
                 if (itemFound == null)
                 {
@@ -149,9 +147,9 @@ namespace Nomadas.Network.Controllers
                 itemFound.Summary = item.Summary;
                 itemFound.RandomString = item.RandomString;
                 itemFound.TemperatureC = item.TemperatureC;
+                itemFound.Modified = DateTime.Now;
 
-                _weatherCore.Update(itemFound);
-                await _weatherCore.Save();
+                await _weatherCore.Update(itemFound);
 
                 _logger.LogInformation($"Updated item {id}");
 

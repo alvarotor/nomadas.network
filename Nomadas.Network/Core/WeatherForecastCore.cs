@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Nomadas.Network.Models;
 
 namespace Nomadas.Network.Core
@@ -12,9 +11,10 @@ namespace Nomadas.Network.Core
 
         public async Task<IEnumerable<WeatherForecast>> GetAllOrderBySummary()
         {
-            return await FindAll()
+            var all = await FindAll(); 
+            return all
                 .OrderBy(o => o.Summary)
-                .ToListAsync();
+                .ToList();
         }
     }
 }

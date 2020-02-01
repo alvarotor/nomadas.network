@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -8,41 +9,45 @@ namespace Nomadas.Network.Core
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected DBContext DBContext { get; set; }
+        protected DBContext _context { get; set; }
 
-        public RepositoryBase(DBContext DBContext)
+        public RepositoryBase(DBContext _context)
         {
-            this.DBContext = DBContext;
+            this._context = _context;
         }
 
-        public IQueryable<T> FindAll()
+        public async Task<List<T>> FindAll()
         {
-            return this.DBContext.Set<T>().AsNoTracking();
+            return await this._context.Set<T>().AsNoTracking().ToListAsync();
+        }
+
+        public virtual async Task<T> GetById(int id)
+        {
+            return await this._context.Set<T>().FindAsync(id);
         }
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
-            return this.DBContext.Set<T>().Where(expression).AsNoTracking();
+            return this._context.Set<T>().Where(expression).AsNoTracking();
         }
 
-        public async Task Create(T entity)
+        public async Task<T> Create(T entity)
         {
-            await this.DBContext.Set<T>().AddAsync(entity);
+            await this._context.Set<T>().AddAsync(entity);
+            await this._context.SaveChangesAsync();
+            return entity;
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
-            this.DBContext.Set<T>().Update(entity);
+            this._context.Set<T>().Update(entity);
+            await this._context.SaveChangesAsync();
         }
 
-        public void Delete(T entity)
+        public async Task Delete(T entity)
         {
-            this.DBContext.Set<T>().Remove(entity);
-        }
-
-        public async Task Save()
-        {
-            await this.DBContext.SaveChangesAsync();
+            this._context.Set<T>().Remove(entity);
+            await this._context.SaveChangesAsync();
         }
     }
 }
