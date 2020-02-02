@@ -11,7 +11,6 @@ using Xunit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
-using Snapshooter.Xunit;
 
 namespace Nomadas.Network.Tests
 {
@@ -311,7 +310,10 @@ namespace Nomadas.Network.Tests
             httpResponse.EnsureSuccessStatusCode();
             var stringResponse = await httpResponse.Content.ReadAsStringAsync();
             List<WeatherForecast> weatherforecasts = JsonConvert.DeserializeObject<List<WeatherForecast>>(stringResponse);
-            Snapshot.Match(weatherforecasts, matchOptions => matchOptions.IgnoreField("Date"));
+
+            Assert.Equal("One", weatherforecasts[0].Summary);
+            Assert.Equal("Three", weatherforecasts[1].Summary);
+            Assert.Equal("Two", weatherforecasts[2].Summary);
         }
     }
 }
