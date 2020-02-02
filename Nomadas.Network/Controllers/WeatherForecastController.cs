@@ -37,11 +37,11 @@ namespace Nomadas.Network.Controllers
         }
 
         [HttpGet("ordered")]
-        public ActionResult<WeatherForecast> GetOrdered()
+        public async Task<ActionResult<WeatherForecast>> GetOrdered()
         {
             _logger.LogInformation("Getting ordered list");
 
-            var items = _weatherCore.GetAllOrderBySummary();
+            var items = await _weatherCore.GetAllOrderBySummary();
 
             if (items == null)
             {

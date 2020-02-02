@@ -11,6 +11,7 @@ using Xunit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using Snapshooter.Xunit;
 
 namespace Nomadas.Network.Tests
 {
@@ -84,13 +85,13 @@ namespace Nomadas.Network.Tests
             Assert.Equal(DateTime.Now.Year, weatherforecast.Date.Year);
         }
 
-        private async Task<string> add1WeatherForecast(HttpClient _client)
+        private async Task<string> add1WeatherForecast(HttpClient _client, string summary = "Summary")
         {
             var obj = new WeatherForecast()
             {
                 RandomString = "RandomString",
                 Date = DateTime.Now,
-                Summary = "Summary",
+                Summary = summary,
                 TemperatureC = 30
             };
 
@@ -223,6 +224,15 @@ namespace Nomadas.Network.Tests
         {
             var _client = createClient();
 
+            await deleteAll(_client);
+
+            var httpResponse = await _client.GetAsync("/weatherforecast");
+
+            Assert.Equal(HttpStatusCode.NotFound, httpResponse.StatusCode);
+        }
+
+        private async Task deleteAll(HttpClient _client)
+        {
             var httpResponse = await _client.DeleteAsync("/weatherforecast/1");
             httpResponse.EnsureSuccessStatusCode();
             httpResponse = await _client.DeleteAsync("/weatherforecast/2");
@@ -233,10 +243,6 @@ namespace Nomadas.Network.Tests
             httpResponse.EnsureSuccessStatusCode();
             httpResponse = await _client.DeleteAsync("/weatherforecast/5");
             httpResponse.EnsureSuccessStatusCode();
-
-            httpResponse = await _client.GetAsync("/weatherforecast");
-
-            Assert.Equal(HttpStatusCode.NotFound, httpResponse.StatusCode);
         }
 
         [Fact]
@@ -289,6 +295,23 @@ namespace Nomadas.Network.Tests
             var httpResponse = await _client.GetAsync("/weatherforecast/6");
 
             Assert.Equal(HttpStatusCode.NotFound, httpResponse.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetOrderedItems()
+        {
+            var _client = createClient();
+
+            await deleteAll(_client);
+            await add1WeatherForecast(_client, "Three");
+            await add1WeatherForecast(_client, "Two");
+            await add1WeatherForecast(_client, "One");
+
+            var httpResponse = await _client.GetAsync("/weatherforecast/ordered");
+            httpResponse.EnsureSuccessStatusCode();
+            var stringResponse = await httpResponse.Content.ReadAsStringAsync();
+            List<WeatherForecast> weatherforecasts = JsonConvert.DeserializeObject<List<WeatherForecast>>(stringResponse);
+            Snapshot.Match(weatherforecasts, matchOptions => matchOptions.IgnoreField("Date"));
         }
     }
 }

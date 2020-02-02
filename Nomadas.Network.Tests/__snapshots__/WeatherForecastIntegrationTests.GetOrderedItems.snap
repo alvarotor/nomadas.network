@@ -1,0 +1,32 @@
+﻿[
+  {
+    "Date": "2020-02-02T16:29:18.3998216+01:00",
+    "TemperatureC": 30,
+    "TemperatureF": 85,
+    "Summary": "One",
+    "RandomString": "RandomString",
+    "Id": 3,
+    "Created": "2020-02-02T15:29:18.402848Z",
+    "Modified": "2020-02-02T15:29:18.4028481Z"
+  },
+  {
+    "Date": "2020-02-02T16:29:18.3823619+01:00",
+    "TemperatureC": 30,
+    "TemperatureF": 85,
+    "Summary": "Three",
+    "RandomString": "RandomString",
+    "Id": 1,
+    "Created": "2020-02-02T15:29:18.3891275Z",
+    "Modified": "2020-02-02T15:29:18.3891277Z"
+  },
+  {
+    "Date": "2020-02-02T16:29:18.3916883+01:00",
+    "TemperatureC": 30,
+    "TemperatureF": 85,
+    "Summary": "Two",
+    "RandomString": "RandomString",
+    "Id": 2,
+    "Created": "2020-02-02T15:29:18.3988002Z",
+    "Modified": "2020-02-02T15:29:18.3988004Z"
+  }
+]

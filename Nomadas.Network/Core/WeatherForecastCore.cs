@@ -11,10 +11,8 @@ namespace Nomadas.Network.Core
 
         public async Task<IEnumerable<WeatherForecast>> GetAllOrderBySummary()
         {
-            var all = await FindAll(); 
-            return all
-                .OrderBy(o => o.Summary)
-                .ToList();
+            var all = await FindAll();
+            return all.OrderBy(s => s.Summary).ToList();
         }
     }
 }
