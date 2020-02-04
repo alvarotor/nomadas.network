@@ -135,21 +135,21 @@ namespace Nomadas.Network.Controllers
 
                 _logger.LogInformation("Updating item...");
 
-                var itemFound = _weatherCore.FindByCondition(x => x.Id == id).FirstOrDefault();
+                var itemFound = _weatherCore.FindByCondition(x => x.Id == id);
 
-                if (itemFound == null)
+                var itemFoundFirst = itemFound.FirstOrDefault();
+                if (!itemFound.Any() || itemFoundFirst == null)
                 {
                     _logger.LogError($"Item with id: {id}, hasn't been found in db.");
                     return NotFound();
                 }
 
-                itemFound.Date = item.Date;
-                itemFound.Summary = item.Summary;
-                itemFound.RandomString = item.RandomString;
-                itemFound.TemperatureC = item.TemperatureC;
-                itemFound.Modified = DateTime.Now;
+                itemFoundFirst.Date = item.Date;
+                itemFoundFirst.Summary = item.Summary;
+                itemFoundFirst.RandomString = item.RandomString;
+                itemFoundFirst.TemperatureC = item.TemperatureC;
 
-                await _weatherCore.Update(itemFound);
+                await _weatherCore.Update(itemFoundFirst);
 
                 _logger.LogInformation($"Updated item {id}");
 
