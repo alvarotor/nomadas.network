@@ -52,7 +52,7 @@ namespace Nomadas.Network.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<WeatherForecast>> Create([FromBody]WeatherForecast item)
+        public async Task<ActionResult> Create([FromBody]WeatherForecast item)
         {
             try
             {
