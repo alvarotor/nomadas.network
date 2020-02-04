@@ -21,7 +21,7 @@ namespace Nomadas.Network.Core
             return await this._context.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public virtual async Task<T> GetById(int id)
+        public async Task<T> GetById(int id)
         {
             return await this._context.Set<T>().FindAsync(id);
         }
