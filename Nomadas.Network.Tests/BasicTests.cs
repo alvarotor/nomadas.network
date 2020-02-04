@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -58,6 +59,7 @@ namespace Nomadas.Network.Tests
             var responseString = await response.Content.ReadAsStringAsync();
             Assert.Equal("OK", responseString);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal("text/plain; charset=utf-8", response.Content.Headers.ContentType.ToString());
         }
 
         [Fact]
