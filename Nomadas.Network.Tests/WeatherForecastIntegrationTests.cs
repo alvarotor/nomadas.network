@@ -40,6 +40,7 @@ namespace Nomadas.Network.Tests
 
             // Must be successful.
             httpResponse.EnsureSuccessStatusCode();
+            Assert.Equal("application/json; charset=utf-8", httpResponse.Content.Headers.ContentType.ToString());
 
             // Deserialize and examine results.
             var stringResponse = await httpResponse.Content.ReadAsStringAsync();
