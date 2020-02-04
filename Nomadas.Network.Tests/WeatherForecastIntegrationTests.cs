@@ -11,7 +11,6 @@ using Xunit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 
 namespace Nomadas.Network.Tests
@@ -149,7 +148,7 @@ namespace Nomadas.Network.Tests
                     });
 
                     services.Configure<ConsoleLifetimeOptions>(opts => opts.SuppressStatusMessages = true);
-                        
+
                     // Build the service provider.
                     var sp = services.BuildServiceProvider();
 
@@ -230,6 +229,16 @@ namespace Nomadas.Network.Tests
             await deleteAll(_client);
 
             var httpResponse = await _client.GetAsync("/weatherforecast");
+
+            Assert.Equal(HttpStatusCode.NotFound, httpResponse.StatusCode);
+        }
+
+        [Fact]
+        public async Task CanDeleteItemNonExistingWeatherForecastsAndGetNotfound()
+        {
+            var _client = createClient();
+
+            var httpResponse = await _client.DeleteAsync("/weatherforecast/666");
 
             Assert.Equal(HttpStatusCode.NotFound, httpResponse.StatusCode);
         }
