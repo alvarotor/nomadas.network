@@ -8,8 +8,8 @@ using Nomadas.Network;
 
 namespace Nomadas.Network.Migrations
 {
-    [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationDbContext))]
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -41,7 +41,7 @@ namespace Nomadas.Network.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WeatherForecast2");
+                    b.ToTable("WeatherForecast");
 
                     b.HasData(
                         new

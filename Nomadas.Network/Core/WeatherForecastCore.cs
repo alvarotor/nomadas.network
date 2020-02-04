@@ -7,7 +7,7 @@ namespace Nomadas.Network.Core
 {
     public class WeatherForecastCore : RepositoryBase<WeatherForecast>, IWeatherForecastCore
     {
-        public WeatherForecastCore(DBContext repositoryContext) : base(repositoryContext) { }
+        public WeatherForecastCore(ApplicationDbContext repositoryContext) : base(repositoryContext) { }
 
         public async Task<IEnumerable<WeatherForecast>> GetAllOrderBySummary()
         {

@@ -11,6 +11,8 @@ using Xunit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 
 namespace Nomadas.Network.Tests
 {
@@ -127,7 +129,7 @@ namespace Nomadas.Network.Tests
             {
                 builder.ConfigureServices(services =>
                 {
-                    var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<DBContext>));
+                    var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
 
                     if (descriptor != null)
                     {
@@ -139,21 +141,23 @@ namespace Nomadas.Network.Tests
                     //     .AddEntityFrameworkInMemoryDatabase()
                     //     .BuildServiceProvider();
 
-                    // Add a database context (DBContext) using an in-memory database for testing.
-                    services.AddDbContext<DBContext>(options =>
+                    // Add a database context (ApplicationDbContext) using an in-memory database for testing.
+                    services.AddDbContext<ApplicationDbContext>(options =>
                     {
                         options.UseInMemoryDatabase("InMemoryDbForTesting");
                         // options.UseInternalServiceProvider(serviceProvider);
                     });
 
+                    services.Configure<ConsoleLifetimeOptions>(opts => opts.SuppressStatusMessages = true);
+                        
                     // Build the service provider.
                     var sp = services.BuildServiceProvider();
 
-                    // Create a scope to obtain a reference to the database contexts
+                    // Create a scope to obtain a reference to the database contexts    
                     using (var scope = sp.CreateScope())
                     {
                         var scopedServices = scope.ServiceProvider;
-                        var appDb = scopedServices.GetRequiredService<DBContext>();
+                        var appDb = scopedServices.GetRequiredService<ApplicationDbContext>();
                         // var logger = scopedServices.GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
 
                         appDb.Database.EnsureDeleted();
@@ -213,9 +217,9 @@ namespace Nomadas.Network.Tests
             Assert.Equal(1, weatherforecast.Id);
             Assert.Equal("Summary Updated", weatherforecast.Summary);
             Assert.Equal("RandomString Updated", weatherforecast.RandomString);
-            Assert.Equal(DateTime.Now.Day, weatherforecast.Modified.Day);
-            Assert.Equal(DateTime.Now.Month, weatherforecast.Modified.Month);
-            Assert.Equal(DateTime.Now.Year, weatherforecast.Modified.Year);
+            Assert.Equal(DateTime.UtcNow.Day, weatherforecast.Modified.Day);
+            Assert.Equal(DateTime.UtcNow.Month, weatherforecast.Modified.Month);
+            Assert.Equal(DateTime.UtcNow.Year, weatherforecast.Modified.Year);
         }
 
         [Fact]

@@ -6,11 +6,12 @@ using Nomadas.Network.Models;
 
 namespace Nomadas.Network
 {
-    public class DBContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public DBContext(DbContextOptions<DBContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public ApplicationDbContext() { }
 
-        public DbSet<WeatherForecast> DBItems { get; set; }
+        public virtual DbSet<WeatherForecast> DBItems { get; set; }
 
         private readonly string[] Summaries = new[]
         {
@@ -41,7 +42,7 @@ namespace Nomadas.Network
                 ((BaseEntity)entry.Entity).Modified = DateTime.UtcNow;
             }
         }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var rng = new Random();

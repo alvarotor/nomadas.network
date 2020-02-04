@@ -9,11 +9,11 @@ namespace Nomadas.Network.Core
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected DBContext _context { get; set; }
+        protected ApplicationDbContext _context { get; set; }
 
-        public RepositoryBase(DBContext _context)
+        public RepositoryBase(ApplicationDbContext _context)
         {
-            this._context = _context;
+            this._context = _context ?? throw new ArgumentNullException(nameof(_context));
         }
 
         public async Task<List<T>> FindAll()

@@ -30,7 +30,7 @@ namespace Nomadas.Network
         {
             using (var scope = host.Services.CreateScope())
             {
-                using (var context = scope.ServiceProvider.GetRequiredService<DBContext>())
+                using (var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
                 {
                     try
                     {
