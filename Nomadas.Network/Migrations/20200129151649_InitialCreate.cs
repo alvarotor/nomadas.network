@@ -8,7 +8,7 @@ namespace Nomadas.Network.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "WeatherForecast2",
+                name: "WeatherForecast",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -20,11 +20,11 @@ namespace Nomadas.Network.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WeatherForecast2", x => x.Id);
+                    table.PrimaryKey("PK_WeatherForecast", x => x.Id);
                 });
 
             migrationBuilder.InsertData(
-                table: "WeatherForecast2",
+                table: "WeatherForecast",
                 columns: new[] { "Id", "Date", "RandomString", "Summary", "TemperatureC" },
                 values: new object[,]
                 {
@@ -39,7 +39,7 @@ namespace Nomadas.Network.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "WeatherForecast2");
+                name: "WeatherForecast");
         }
     }
 }
