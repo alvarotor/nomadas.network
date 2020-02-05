@@ -34,7 +34,7 @@ namespace Nomadas.Network
                 {
                     try
                     {
-                        context.Database.EnsureDeleted();
+                        // context.Database.EnsureDeleted();
                         context.Database.EnsureCreated();
                         context.Database.Migrate();
                     }
