@@ -1,10 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Nomadas.Network.Models
 {
-    [Table("WeatherForecast")]
     public class WeatherForecast : BaseEntity
     {
         public DateTime Date { get; set; }
