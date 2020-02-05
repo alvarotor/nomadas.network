@@ -48,7 +48,7 @@ namespace Nomadas.Network.Tests
                 var item = A.New<WeatherForecast>();
                 item.Summary = "Summary";
                 var result = await controller.Create(item) as CreatedAtActionResult;
-                Assert.IsType<CreatedAtActionResult>(result);
+                // Assert.IsType<CreatedAtActionResult>(result);
                 var itemResult = result.Value as WeatherForecast;
                 Assert.IsType<WeatherForecast>(itemResult);
                 // Console.WriteLine(itemResult.Id);
