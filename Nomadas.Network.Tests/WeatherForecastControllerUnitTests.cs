@@ -92,13 +92,9 @@ namespace Nomadas.Network.Tests
             {
                 var core = new WeatherForecastCore(context);
                 var controller = new WeatherForecastController(_mockLogger.Object, core);
-                var result = await controller.Get();
-                // Assert.IsType<ActionResult<List<WeatherForecast>>>(result);
+                var result = await controller.Get() as OkObjectResult;
                 var itemResult = result.Value as List<WeatherForecast>;
-                Console.WriteLine(itemResult);
-                // Assert.IsType<List<WeatherForecast>>(itemResult);
-                // Console.WriteLine(itemResult.Count);
-                // Assert.Equal(25, itemResult.Count);
+                Assert.Equal(25, itemResult.Count);
             }
         }
 
