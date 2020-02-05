@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace Nomadas.Network.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<WeatherForecast>> Get()
+        public async Task<ActionResult<List<WeatherForecast>>> Get()
         {
             _logger.LogInformation("Getting all list");
 

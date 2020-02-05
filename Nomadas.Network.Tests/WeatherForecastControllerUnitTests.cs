@@ -9,21 +9,22 @@ using Nomadas.Network.Core;
 using Moq;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Nomadas.Network.Tests
 {
     public class WeatherForecastControllerUnitTests
     {
-        private readonly DbContextOptions<ApplicationDbContext> options;
-        private readonly Mock<ILogger<WeatherForecastController>> _mockLogger;
+        private Mock<ILogger<WeatherForecastController>> _mockLogger;
 
-        public WeatherForecastControllerUnitTests()
+        private DbContextOptions<ApplicationDbContext> createDatabase()
         {
             _mockLogger = new Mock<ILogger<WeatherForecastController>>();
 
-            options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
+            DbContextOptions<ApplicationDbContext> options = 
+                new DbContextOptionsBuilder<ApplicationDbContext>()
+                    .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                    .Options;
 
             using (var context = new ApplicationDbContext(options))
             {
@@ -36,11 +37,15 @@ namespace Nomadas.Network.Tests
                 });
                 context.SaveChanges();
             }
+
+            return options;
         }
 
         [Fact]
         public async Task Create()
         {
+            var options = createDatabase();
+
             using (var context = new ApplicationDbContext(options))
             {
                 var core = new WeatherForecastCore(context);
@@ -48,7 +53,7 @@ namespace Nomadas.Network.Tests
                 var item = A.New<WeatherForecast>();
                 item.Summary = "Summary";
                 var result = await controller.Create(item) as CreatedAtActionResult;
-                // Assert.IsType<CreatedAtActionResult>(result);
+                Assert.IsType<CreatedAtActionResult>(result);
                 var itemResult = result.Value as WeatherForecast;
                 Assert.IsType<WeatherForecast>(itemResult);
                 // Console.WriteLine(itemResult.Id);
@@ -59,9 +64,11 @@ namespace Nomadas.Network.Tests
             }
         }
 
-                [Fact]
+        [Fact]
         public async Task CreateModelInvalid()
         {
+            var options = createDatabase();
+
             using (var context = new ApplicationDbContext(options))
             {
                 var core = new WeatherForecastCore(context);
@@ -71,6 +78,41 @@ namespace Nomadas.Network.Tests
                 controller.ModelState.AddModelError("Summary", "Required");
                 var result = await controller.Create(item);
                 Assert.IsType<BadRequestObjectResult>(result);
+                // Assert.True(controller.ModelState.Count, 1);
+                // Assert.True(controller.ModelState.Count == 1, "Invalid model object");
+            }
+        }
+
+        [Fact]
+        public async Task GetAll()
+        {
+            var options = createDatabase();
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                var core = new WeatherForecastCore(context);
+                var controller = new WeatherForecastController(_mockLogger.Object, core);
+                var result = await controller.Get();
+                // Assert.IsType<ActionResult<List<WeatherForecast>>>(result);
+                var itemResult = result.Value as List<WeatherForecast>;
+                Console.WriteLine(itemResult);
+                // Assert.IsType<List<WeatherForecast>>(itemResult);
+                // Console.WriteLine(itemResult.Count);
+                // Assert.Equal(25, itemResult.Count);
+            }
+        }
+
+        [Fact]
+        public void GetByIdNotFound()
+        {
+            var options = createDatabase();
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                var core = new WeatherForecastCore(context);
+                var controller = new WeatherForecastController(_mockLogger.Object, core);
+                var notFoundResult = controller.GetItem(30);
+                Assert.IsType<NotFoundResult>(notFoundResult.Result);
             }
         }
     }
