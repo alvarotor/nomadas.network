@@ -26,6 +26,7 @@ Add `.vscode/launch.json` (normally added by vscode itself) but we need to add e
 
 - Force https
 - Add and use Authentication system and samples
+- Add Elastic Search connection
 
 ## Create code on machine from scratch
 
