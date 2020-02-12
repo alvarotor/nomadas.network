@@ -1,9 +1,31 @@
 # Nomadas Network
 
+## Intructions to run the project
+
+Add `.env` file with variable (for docker compose env variables):
+
+    ASPNETCORE_ENVIRONMENT=Development
+    DB_PASSWORD=myPass
+    ADMIN_LOGIN=SA
+    DB_SERVER=localhost
+    DB_NAME=nomadas-network
+    DB_PORT=1433
+
+Add `.vscode/launch.json` (normally added by vscode itself) but we need to add env variables inside "configurations" section and inside ".NET Core Launch (web)" option:
+
+    "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DB_PASSWORD": "myPass",
+        "ADMIN_LOGIN": "SA",
+        "DB_SERVER": "localhost",
+        "DB_NAME": "nomadas-network",
+        "DB_PORT": "1433"
+    },
+
 ## TO-DO
 
 - Force https
-- Add and use Authentication samples
+- Add and use Authentication system and samples
 
 ## Create code on machine from scratch
 
