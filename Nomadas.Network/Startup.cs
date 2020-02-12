@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Http;
 using System;
 using Microsoft.EntityFrameworkCore;
 using Nomadas.Network.Core;
+using GraphQL;
+using GraphQL.Server;
+using GraphQL.Server.Ui.Playground;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace Nomadas.Network
 {
@@ -26,6 +30,12 @@ namespace Nomadas.Network
 
             string connection = getDBConnectionString();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
+
+            services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
+            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+            services.AddScoped<AppSchema>();
+            services.AddGraphQL(o => { o.ExposeExceptions = false; }).AddGraphTypes(ServiceLifetime.Scoped);
+
             services.AddControllers();
             services.AddHealthChecks();
         }
@@ -50,6 +60,9 @@ namespace Nomadas.Network
 
             // app.UseHttpsRedirection();
             // app.UseAuthorization();
+
+            app.UseGraphQL<AppSchema>();
+            app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions());
 
             app.UseRouting();
 

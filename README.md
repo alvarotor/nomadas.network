@@ -45,11 +45,14 @@ Add `.vscode/launch.json` (normally added by vscode itself) but we need to add e
     dotnet add Nomadas.Network.Tests/Nomadas.Network.Tests.csproj reference Nomadas.Network.csproj
     cd Nomadas.Network
     dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+    dotnet add package GraphQL
+    dotnet add package GraphQL.Server.Transports.AspNetCore
+    dotnet add package GraphQL.Server.Ui.Playground
     cd ..
 
 Code to add a new project in one command line
 
-    dotnet new sln -o nomadas.network && cd nomadas.network && dotnet new webapi -o Nomadas.Network && dotnet new xunit -o Nomadas.Network.Tests && cd Nomadas.Network.Tests && dotnet add package Moq && dotnet add package Microsoft.AspNetCore.Mvc.Testing && dotnet add package Microsoft.AspNetCore.TestHost && dotnet add package Microsoft.EntityFrameworkCore.InMemory && dotnet add package Microsoft.EntityFrameworkCore &&  cd .. && dotnet sln add ./Nomadas.Network.Tests/Nomadas.Network.Tests.csproj && dotnet sln add ./Nomadas.Network/Nomadas.Network.csproj && dotnet add Nomadas.Network.Tests/Nomadas.Network.Tests.csproj reference Nomadas.Network/Nomadas.Network.csproj && cd Nomadas.Network && dotnet add package Microsoft.EntityFrameworkCore.SqlServer && cd ..
+    dotnet new sln -o nomadas.network && cd nomadas.network && dotnet new webapi -o Nomadas.Network && dotnet new xunit -o Nomadas.Network.Tests && cd Nomadas.Network.Tests && dotnet add package Moq && dotnet add package Microsoft.AspNetCore.Mvc.Testing && dotnet add package Microsoft.AspNetCore.TestHost && dotnet add package Microsoft.EntityFrameworkCore.InMemory && dotnet add package Microsoft.EntityFrameworkCore && cd .. && dotnet sln add ./Nomadas.Network.Tests/Nomadas.Network.Tests.csproj && dotnet sln add ./Nomadas.Network/Nomadas.Network.csproj && dotnet add Nomadas.Network.Tests/Nomadas.Network.Tests.csproj reference Nomadas.Network/Nomadas.Network.csproj && cd Nomadas.Network && dotnet add package Microsoft.EntityFrameworkCore.SqlServer && dotnet add package GraphQL && dotnet add package GraphQL.Server.Transports.AspNetCore && dotnet add package GraphQL.Server.Ui.Playground && cd ..
 
 ## Run code on machine
 
