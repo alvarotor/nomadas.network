@@ -46,10 +46,7 @@ namespace Nomadas.Network
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment() || env.IsStaging())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            setErrorMessageSystem(app, env);
 
             // app.UseHttpsRedirection();
             // app.UseAuthorization();
@@ -61,8 +58,25 @@ namespace Nomadas.Network
                 endpoints.MapControllers();
                 endpoints.MapGet("/", context => context.Response.WriteAsync("Hello world"));
                 endpoints.MapGet("/connection", context => context.Response.WriteAsync(getDBConnectionString()));
+                endpoints.MapGet("/crash", context => throw new Exception("Boom!"));
                 endpoints.MapHealthChecks("/health");
             });
+        }
+
+        private static void setErrorMessageSystem(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else if (env.IsStaging())
+            {
+                app.UseExceptionHandler("/error-staging");
+            }
+            else
+            {
+                app.UseExceptionHandler("/error");
+            }
         }
     }
 }
