@@ -1,5 +1,10 @@
 # Nomadas Network
 
+## TO-DO
+
+- Force https
+- Add and use Authentication samples
+
 ## Create code on machine from scratch
 
     dotnet new sln -o nomadas.network
