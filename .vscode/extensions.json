@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "formulahendry.dotnet-test-explorer",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode.csharp"
+    ]
+}
