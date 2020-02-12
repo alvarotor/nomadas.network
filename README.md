@@ -102,3 +102,54 @@ Code to add a new project in one command line
     dotnet test --collect:"XPlat Code Coverage"
     dotnet tool install --global dotnet-reportgenerator-globaltool
     reportgenerator "-reports:OpenCover.xml" "-targetdir:coveragereport" reporttypes:Html
+
+## Samples of GraphQL queries
+
+    {
+        weatherforecasts {
+            id,
+            date,
+            randomString,
+            summary,
+            temperatureC
+        }
+    }
+
+    mutation CreateWeatherForecast($weatherforecast: WeatherForecastInput!) {
+    createWeatherForecast (weatherforecast: $weatherforecast) {
+            id,
+            date,
+            randomString,
+            summary,
+            temperatureC
+        }
+    }
+
+    { 
+        "weatherforecast": {
+            "date": "2001-01-01",
+            "randomString": "fdsgsdfgsdfg",
+            "summary": "sdfgsdfgsdfg",
+                "temperatureC": 666
+        }
+    }
+
+    mutation UpdateWeatherForecast($wf: WeatherForecastInput!, $id: ID!) {
+        updateWeatherForecast (weatherforecast: $wf, weatherforecastId: $id) {
+            id,
+            date,
+            randomString,
+            summary,
+            temperatureC
+        }
+    }
+
+    { 
+        "wf": {
+            "date": "2001-01-01",
+            "randomString": "11",
+            "summary": "11",
+                "temperatureC": 11
+        },
+        "id": 11
+    }

@@ -38,16 +38,16 @@ namespace Nomadas.Network.Core
             return entity;
         }
 
-        public async Task Update(T entity)
+        public async Task<int> Update(T entity)
         {
             this._context.Set<T>().Update(entity);
-            await this._context.SaveChangesAsync();
+            return await this._context.SaveChangesAsync();
         }
 
-        public async Task Delete(T entity)
+        public async Task<int> Delete(T entity)
         {
             this._context.Set<T>().Remove(entity);
-            await this._context.SaveChangesAsync();
+            return await this._context.SaveChangesAsync();
         }
     }
 }

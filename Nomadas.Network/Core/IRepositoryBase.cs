@@ -12,7 +12,7 @@ namespace Nomadas.Network.Core
         Task<T> GetById(long id);
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
         Task<T> Create(T entity);
-        Task Update(T entity);
-        Task Delete(T entity);
+        Task<int> Update(T entity);
+        Task<int> Delete(T entity);
     }
 }

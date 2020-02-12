@@ -32,7 +32,7 @@ namespace Nomadas.Network.GraphQL
                     var dbWeatherForecast = await repository.GetById(weatherforecastId);
                     if (dbWeatherForecast == null)
                     {
-                        context.Errors.Add(new ExecutionError("Couldn't find weatherforecast in db."));
+                        context.Errors.Add(new ExecutionError($"Couldn't find the id: {weatherforecastId} weatherforecast in db."));
                         return null;
                     }
 
@@ -43,12 +43,17 @@ namespace Nomadas.Network.GraphQL
                     dbWeatherForecast.TemperatureC =
                         string.IsNullOrEmpty(weatherforecast.TemperatureC.ToString()) ? dbWeatherForecast.TemperatureC : weatherforecast.TemperatureC;
 
-                    return repository.Update(dbWeatherForecast);
+                    if (await repository.Update(dbWeatherForecast) == 0)
+                    {
+                        return null;
+                    }
+
+                    return dbWeatherForecast;
                 }
             );
-            
+
             FieldAsync<StringGraphType>(
-                "deleteOwner",
+                "deleteWeatherForecast",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>> { Name = "weatherforecastId" }),
                 resolve: async context =>
                 {
@@ -56,7 +61,7 @@ namespace Nomadas.Network.GraphQL
                     var weatherforecast = await repository.GetById(weatherforecastId);
                     if (weatherforecast == null)
                     {
-                        context.Errors.Add(new ExecutionError("Couldn't find weatherforecast in db."));
+                        context.Errors.Add(new ExecutionError($"Couldn't find the id: {weatherforecastId} weatherforecast in db."));
                         return null;
                     }
 
