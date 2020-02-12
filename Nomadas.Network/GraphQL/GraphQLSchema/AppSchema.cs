@@ -1,10 +1,14 @@
 using GraphQL;
 using GraphQL.Types;
 
-public class AppSchema : Schema
+namespace Nomadas.Network.GraphQL
 {
-    public AppSchema(IDependencyResolver resolver) : base(resolver)
+    public class AppSchema : Schema
     {
-        Query = resolver.Resolve<AppQuery>();
+        public AppSchema(IDependencyResolver resolver) : base(resolver)
+        {
+            Query = resolver.Resolve<AppQuery>();
+            Mutation = resolver.Resolve<AppMutation>();
+        }
     }
 }

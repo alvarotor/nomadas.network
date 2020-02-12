@@ -11,6 +11,7 @@ using GraphQL;
 using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Nomadas.Network.GraphQL;
 
 namespace Nomadas.Network
 {

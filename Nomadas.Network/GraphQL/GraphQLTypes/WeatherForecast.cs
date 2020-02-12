@@ -1,17 +1,20 @@
 using GraphQL.Types;
 using Nomadas.Network.Models;
 
-public class WeatherForecastType : ObjectGraphType<WeatherForecast>
+namespace Nomadas.Network.GraphQL
 {
-    public WeatherForecastType()
+    public class WeatherForecastType : ObjectGraphType<WeatherForecast>
     {
-        Field(x => x.Id, type: typeof(IdGraphType)).Description("Id property from the WeatherForecast object.");
-        Field(x => x.Created).Description("Created property from the WeatherForecast object.");
-        Field(x => x.Modified).Description("Modified property from the WeatherForecast object.");
-        Field(x => x.Date).Description("Date property from the WeatherForecast object.");
-        Field(x => x.TemperatureC).Description("TemperatureC property from the WeatherForecast object.");
-        Field(x => x.TemperatureF).Description("TemperatureC property from the WeatherForecast object.");
-        Field(x => x.Summary).Description("TemperatureC property from the WeatherForecast object.");
-        Field(x => x.RandomString).Description("TemperatureC property from the WeatherForecast object.");
+        public WeatherForecastType()
+        {
+            Field(x => x.Id, type: typeof(IdGraphType)).Description("Id property from the WeatherForecast object.");
+            Field(x => x.Created, type: typeof(DateGraphType)).Description("Created property from the WeatherForecast object.");
+            Field(x => x.Modified, type: typeof(DateGraphType)).Description("Modified property from the WeatherForecast object.");
+            Field(x => x.Date, type: typeof(DateGraphType)).Description("Date property from the WeatherForecast object.");
+            Field(x => x.TemperatureC, type: typeof(IntGraphType)).Description("TemperatureC property from the WeatherForecast object.");
+            Field(x => x.TemperatureF, type: typeof(IntGraphType)).Description("TemperatureF property from the WeatherForecast object.");
+            Field(x => x.Summary, type: typeof(StringGraphType)).Description("Summary property from the WeatherForecast object.");
+            Field(x => x.RandomString, type: typeof(StringGraphType)).Description("RandomString property from the WeatherForecast object.");
+        }
     }
 }
